@@ -95,7 +95,7 @@ class DataProcess:
         _df['PCTE_SEG'] = _df['PCTE_SEG'].str.replace("?", "n")
 
         # Correcting Risk Group
-        _df['PCTE_GRP_PRI'] = _df.PCTE_GRP_PRI.apply(_remove_accents)
+        _df['PCTE_GRP_PRI'] = _df.PCTE_GRP_PRI.apply(self.__remove_accents)
         _df['PCTE_GRP_PRI_Embarazadas'] = _df.PCTE_GRP_PRI.str.contains('Embarazada')
         _df['PCTE_GRP_PRI_Discapacidad'] = _df.PCTE_GRP_PRI.str.contains('Discapacidad')
         _df['PCTE_GRP_PRI_Assedio_Sexual_Trabajo'] = _df.PCTE_GRP_PRI.str.contains('A Sexual')
