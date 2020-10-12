@@ -20,8 +20,6 @@ class DataProcess:
             # st.exception('Arquivo não corresponde ao layout PRAS.')
             st.exception(e)
         
-        print(adjusted_text_df['PCTE_ORI_SEX'].unique())
-        print(adjusted_text_df['PCTE_NACIONALIDAD'].unique())
         return adjusted_text_df
 
     def __drop_known_useless_columns(self, df):
