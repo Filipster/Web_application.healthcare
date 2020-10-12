@@ -83,6 +83,7 @@ class DataProcess:
         _df['PCTE_AUTID_ETN'] = _df.PCTE_AUTID_ETN.apply(self.__adj_etnics)
         _ = ['No Aplica', 'No sabe', 'Otro', np.isnan]
         _df.loc[_df.PCTE_AUTID_ETN.isin(_), 'PCTE_AUTID_ETN'] = 'No info'
+        _df.replace(to_replace='Indígena', value='Indigena', inplace=True)
 
         _ = ['No sabemos/No responde', np.isnan]
         _df.loc[_df.PCTE_NAC_ETN.isin(_), 'PCTE_NAC_ETN'] = 'No info'
