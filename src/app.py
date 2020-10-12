@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from utils.pre_process import DataProcess
 
 from utils import FileReference, hash_file_reference
 
@@ -27,11 +28,18 @@ def main():
         try:
             if file is not None:
                 if (select_type == 'csv') | (select_type == 'txt'):
-                    df = pd.read_csv(file, sep=sep_text_input, encoding=encoding_text_input)
-                    return df
+                    df = pd.read_csv(file, 
+                                     sep=sep_text_input, 
+                                     encoding=encoding_text_input,
+                                     na_values=' ')
                 elif select_type == 'xlsx':
-                    df = pd.read_excel(file)
-                    return df
+                    df = pd.read_excel(file, 
+                                       sheet_name=0, 
+                                       na_values='')
+                
+                processed_df = DataProcess(df).excel_process()
+
+                return processed_df
         except Exception as e:
             st.markdown(e)
 
