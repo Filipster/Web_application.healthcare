@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from utils.pre_process import DataProcess
+from src import main_page
 
 from utils import FileReference, hash_file_reference
 
@@ -46,7 +47,8 @@ def main():
     df = read_file_data(file)
     
     if df is not None:
-        st.dataframe(df.columns)
+        # st.dataframe(df.columns)
+        main_page.body(df)
     else:
         st.markdown('Dataflow')
 
