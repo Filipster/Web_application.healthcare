@@ -39,6 +39,9 @@ def _build_vbar_chart(data, fields):
     ax.bar(labels, lbl_values)
     ax.set_xlabel(fields[0])
     ax.set_ylabel('quantity')
+
+    for lbl in enumerate(lbl_values):
+        ax.text(lbl[0], lbl[1] + 100, lbl[1])
     
     return st.pyplot(fig)
 
@@ -54,6 +57,9 @@ def _build_hbar_chart(data, fields):
     ax.barh(labels, lbl_values)
     ax.set_ylabel(fields[0])
     ax.set_xlabel('quantity')
+
+    for lbl in enumerate(lbl_values):
+        ax.text(lbl[1] + 100, lbl[0], lbl[1])
     
     return st.pyplot(fig)
 
