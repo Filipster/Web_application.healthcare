@@ -118,6 +118,29 @@ class DataProcess:
         _df[_] = _df[_].fillna(0)
         _df = _df.fillna('No info')
 
+        lat_long = {
+            "CUMBARATZA": [-3.992607, -78.8690901],
+            "GUADALUPE": [-3.8454276,-78.8947857],
+            "LA PAZ": [-3.7018689,-78.899002],
+            "TIMBARA": [-4.0318784,-78.9106638],
+            "CENTRO DE SALUD ZAMORA": [-4.0654093,-78.9617017],
+            "LA PITUCA": [-3.822281,-78.7552248],
+            "IMBANA": [-3.8294369,-79.2252348],
+            "SAN ANTONIO": [-3.9753789,-79.6895276],
+            "28 DE MAYO (YACUAMBI)": [-3.6360432,-78.9279485],
+            "NAMBIJA": [-4.0302455,-78.9261417],
+            "SAN CARLOS DE LAS MINAS": [-4.0206319,-78.8323975],
+            "LA ESPERANZA": [-0.6833115,-79.9587548],
+            "TUTUPALI": [-3.5300355,-78.9620308],
+            "EL LIMON": [-4.0588922,-78.9724087],
+            "GUAGUAYME ALTO": [-3.9085655,-78.8952368],
+            "JEMBUENTZA": [-4.0654093,-78.9617017],
+            "CHAPINTZA": [-3.7679467,-78.8739824],
+        }
+        for item in _df.ENT_NOM.unique():
+            _df.loc[_df.ENT_NOM == item, 'ENT_NOM_LAT'] = lat_long[item][0]
+            _df.loc[_df.ENT_NOM == item, 'ENT_NOM_LONG'] = lat_long[item][1]
+
         return _df
 
 
