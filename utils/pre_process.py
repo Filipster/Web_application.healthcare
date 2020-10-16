@@ -141,6 +141,9 @@ class DataProcess:
             _df.loc[_df.ENT_NOM == item, 'ENT_NOM_LAT'] = lat_long[item][0]
             _df.loc[_df.ENT_NOM == item, 'ENT_NOM_LONG'] = lat_long[item][1]
 
+        _df['ATEMED_MONTH'] = pd.to_datetime(_df.ATEMED_FEC_INI).dt.to_period('M')
+        _df['ATEMED_MONTH'] = _df.ATEMED_MONTH.astype('str')
+
         return _df
 
 
