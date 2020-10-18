@@ -58,14 +58,20 @@ def body(df):
     focus_group = st.selectbox(label='Choose a Priority Group to filter further charts', options=groups)
 
     # Priority Group Diagnostic
-    st.header('{} - {} - Top 10 Most Frequent CIE'.format(month_analyzed, focus_group))
+    nm_cies = st.slider(
+        label='Choose how many CIEs should be visible',
+        min_value=4,
+        max_value=len(filter_1.ATEMED_DES_CIE10.unique()),
+        value=10,
+        step=2)
+    st.header('{} - {} - Top {} Most Frequent CIE'.format(month_analyzed, focus_group, nm_cies))
 
     if focus_group == 'All Groups':
         filter_2 = filter_1.copy()
     else:
         filter_2 = filter_1[filter_1[focus_group] > 0]
     
-    _df = filter_2.ATEMED_DES_CIE10.value_counts().head(10)
+    _df = filter_2.ATEMED_DES_CIE10.value_counts().head(nm_cies)
 
     labels = list(_df.keys())
     lbl_values = list(_df.values)
