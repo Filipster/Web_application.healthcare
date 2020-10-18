@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
@@ -16,11 +17,7 @@ def body(df):
     st.markdown('% Women: **{:.1f}%**'.format(df.PCTE_SEXO.value_counts(normalize=True)['Mujer'] * 100))
     st.markdown('% Men: **{:.1f}%**'.format(df.PCTE_SEXO.value_counts(normalize=True)['Hombre'] * 100))
 
-    st.header('HeatMap? (Manter? O que fazer?)')
-    _df = df[['ENT_NOM_LAT', 'ENT_NOM_LONG', 'ENT_DES_PARR']].rename({'ENT_NOM_LAT': 'lat', 'ENT_NOM_LONG': 'lon'}, axis=1)
-    _df = _df.groupby(['lat', 'lon']).agg({'ENT_DES_PARR': 'count'}).reset_index()
-    st.map(_df)
-    
+    # Cases per Month
     st.header('Cases per Month')
     _df = df.groupby(['ATEMED_MONTH']).agg({'ENT_DES_PARR': 'count'}).reset_index().sort_values(by='ATEMED_MONTH')
     st.markdown('Month with most register: **{}** with **{:.1f}%** of the total appointments'.format(_df.loc[np.argmax(_df.ENT_DES_PARR)][0], (_df.loc[np.argmax(_df.ENT_DES_PARR)][1] / len(df) * 100)))
@@ -61,7 +58,7 @@ def body(df):
     focus_group = st.selectbox(label='Choose a Priority Group to filter further charts', options=groups)
 
     # Priority Group Diagnostic
-    st.header('{} - {} - Top 10 Most Frequent Diagnostic'.format(month_analyzed, focus_group))
+    st.header('{} - {} - Top 10 Most Frequent CIE'.format(month_analyzed, focus_group))
 
     if focus_group == 'All Groups':
         filter_2 = filter_1.copy()
@@ -74,6 +71,25 @@ def body(df):
     lbl_values = list(_df.values)
 
     _build_vbar_chart(labels, lbl_values, 90)
+
+    # Map of occurencies
+    st.header('Occurencies by Area')
+    _df = df[['ENT_NOM', 'ENT_NOM_LAT', 'ENT_NOM_LONG', 'ENT_DES_PARR']].rename({'ENT_NOM_LAT': 'lat', 'ENT_NOM_LONG': 'lon'}, axis=1)
+    _df = _df.groupby(['ENT_NOM', 'lat', 'lon']).agg({'ENT_DES_PARR': 'count'}).reset_index()
+    _df.rename({'ENT_DES_PARR': 'qty'}, axis=1, inplace=True)
+
+    fig = px.scatter_mapbox(
+        _df,
+        lat='lat',
+        lon='lon',
+        color_discrete_sequence=['purple'],
+        size='qty',
+        hover_data=['ENT_NOM'],
+        zoom=7,
+        height=400)
+    fig.update_layout(mapbox_style="open-street-map")
+
+    st.plotly_chart(fig)
 
 
 
