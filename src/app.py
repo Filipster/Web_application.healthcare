@@ -1,14 +1,18 @@
+import os
 import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from PIL import Image
 from utils.pre_process import DataProcess
 from src import main_page
-
 from utils import FileReference, hash_file_reference
 
 def main():
-     # -------------------------------- Sidebar -------------------------------
+    # -------------------------------- Sidebar -------------------------------
+    img = Image.open('src/imgs/logo.png')
+    st.sidebar.image(img, use_column_width=True)
+    
     st.sidebar.title('Carregar o conjunto de dados')
 
     select_type = st.sidebar.selectbox('Escolha a extensão do arquivo', options=[
