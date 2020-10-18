@@ -4,55 +4,22 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
-from utils.pre_process import DataProcess
-from src import main_page
-from utils import FileReference, hash_file_reference
+
+from src import view_pras_analysis
+from src import view_diabetes
+
 
 def main():
     # -------------------------------- Sidebar -------------------------------
     img = Image.open('src/imgs/logo.png')
     st.sidebar.image(img, use_column_width=True)
     
-    st.sidebar.title('Carregar o conjunto de dados')
-
-    select_type = st.sidebar.selectbox('Escolha a extensão do arquivo', options=[
-        'Selecione uma opção', 'csv', 'xlsx', 'txt'
-    ])
+    page = st.sidebar.radio(
+        '', 
+        ('PRAS Analysis', 'Diabetes Model', 'Heart Disease Model', 'Image Diagnosis'))
     
-    sep_text_input = st.sidebar.text_input('Informe o separador do arquivo selecionado', value=',')
-    encoding_text_input = st.sidebar.text_input('Infome o encoding do arquivo selecionado', value='utf-8')
-
- 
-    file = st.sidebar.file_uploader('Uploader do arquivo', type=select_type)
-    
-    
-    # -------------------------- Conteúdo da página principal ----------------
-    # Carregando os dados de arquivo
-    @st.cache(allow_output_mutation={FileReference: hash_file_reference})
-    def read_file_data(file):
-        try:
-            if file is not None:
-                if (select_type == 'csv') | (select_type == 'txt'):
-                    df = pd.read_csv(file, 
-                                     sep=sep_text_input, 
-                                     encoding=encoding_text_input,
-                                     na_values=' ')
-                elif select_type == 'xlsx':
-                    df = pd.read_excel(file, 
-                                       sheet_name=0, 
-                                       na_values='')
-                
-                processed_df = DataProcess(df).excel_process()
-
-                return processed_df
-        except Exception as e:
-            st.markdown(e)
-
-    df = read_file_data(file)
-    
-    if df is not None:
-        # st.dataframe(df.columns)
-        main_page.body(df)
-    else:
-        st.markdown('Dataflow')
+    if page == 'PRAS Analysis':
+        view_pras_analysis.main()
+    elif page == 'Diabetes Model':
+        view_diabetes.main()
 
