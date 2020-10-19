@@ -32,3 +32,14 @@ $ streamlit run run.py
 * Avaliar se streamlit possui "Modo Dev" (sempre que alterar código ele reinicia automatico)
 * Refatorar método de correção dos dados (muito extenso)
 * Melhorar as mensagens de erro para o usuário
+
+### To Do´s
+4. replicar os seguintes projetos para a gente: 
+    A) diagnóstico de imagem: https://github.com/aryansharma-prime/medstack
+    C) doença do coração: https://github.com/Nikhilkohli1/Heart-Disease-Diagnosis-Assistant
+
+5. adicionar: Cuantidad de pacientes atendidos en la comunidad\n y enfermidades
+ta em: consolidado_JAN_A_NOV.txt-checkpoint.ipynb
+https://drive.google.com/file/d/1FzFW3Smxf7KhcEAaBsZWzLQCCYT5SQ7h/view?usp=sharing
+
+6. uma parte com value_counts() do "Lugar_atención"
