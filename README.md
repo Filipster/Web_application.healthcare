@@ -35,7 +35,6 @@ $ streamlit run run.py
 
 ### To Do´s
 4. replicar os seguintes projetos para a gente: 
-    A) diagnóstico de imagem: https://github.com/aryansharma-prime/medstack
     C) doença do coração: https://github.com/Nikhilkohli1/Heart-Disease-Diagnosis-Assistant
 
 5. adicionar: Cuantidad de pacientes atendidos en la comunidad\n y enfermidades
