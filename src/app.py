@@ -3,11 +3,14 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import warnings
 from PIL import Image
 
 from src import view_pras_analysis
 from src import view_diabetes
+from src import view_image_diagnosis
 
+warnings.filterwarnings('ignore')
 
 def main():
     # -------------------------------- Sidebar -------------------------------
@@ -22,4 +25,6 @@ def main():
         view_pras_analysis.main()
     elif page == 'Diabetes Model':
         view_diabetes.main()
+    elif page == 'Image Diagnosis':
+        view_image_diagnosis.main()
 

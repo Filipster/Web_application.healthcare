@@ -4,11 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 import numpy as np
-import warnings
 from utils import FileReference, hash_file_reference
 from utils.pre_process import DataProcess
-warnings.filterwarnings('ignore')
-
 
 def main():
     st.title('DATAFLOW - PRAS analysis')
